@@ -1,0 +1,1 @@
+import pandas as pdfrom opec import momrdef test_read_table1():    u = 'https://www.opec.org/opec_web/static_files_project/media/downloads/publications/MOMR%20Appendix%20Tables%20(August%202021).xlsx'    res = momr.read_table1(u)    assert isinstance(res, pd.DataFrame)
