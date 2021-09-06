@@ -30,7 +30,7 @@ test:
   before_script:
     - pip install -r requirements.txt
   script:
-    - pytest
+    - python -m pytest
 
 coverage:
     stage: test
