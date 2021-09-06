@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="oilanalytics",
-    version="0.0.1",
+    version="0.0.2",
     author="aeorxc",
     description="Utilities for oil analytics",
     url="https://github.com/aeorxc/oilanalytics",
@@ -18,5 +18,5 @@ setuptools.setup(
     install_requires=["pandas", "requests", "commodutil"],
     python_requires=">=3.8",
     setup_requires=["pytest-runner"],
-    tests_require=["pytest"],
+    tests_requirer=["pytest"],
 )
