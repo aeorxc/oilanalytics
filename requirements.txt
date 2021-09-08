@@ -1,1 +1,1 @@
-requestspandaseiapyexcel-scraperopenpyxllxmlpython-dotenv
+requestspandaseiapyexcel-scraperopenpyxllxmlpython-dotenvcommodplot
