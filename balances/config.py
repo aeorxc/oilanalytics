@@ -1,1 +1,0 @@
-IEA_OMR_LOC = r'M:\Shared Documents\Reports\IEA\210812\OMRAugust2021.ZIP'
