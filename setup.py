@@ -19,4 +19,6 @@ setuptools.setup(
     python_requires=">=3.8",
     setup_requires=["pytest-runner"],
     tests_requirer=["pytest"],
+    package_data={'oilanalytics': ['prices/templates/*.html', 'energyaspects/templates/*.html']},
+    include_package_data=True,
 )
