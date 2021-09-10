@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="oilanalytics",
-    version="0.1.5",
+    version="0.1.6",
     author="aeorxc",
     description="Utilities for oil analytics",
     url="https://github.com/aeorxc/oilanalytics",
@@ -18,7 +18,7 @@ setuptools.setup(
     install_requires=["pandas", "requests", "commodutil", "commodplot", "python-dotenv"],
     python_requires=">=3.8",
     setup_requires=["pytest-runner"],
-    tests_requirer=["pytest"],
-    package_data={'oilanalytics': ['prices/templates/*.html', 'energyaspects/templates/*.html']},
+    tests_require=["pytest"],
+    package_data={'oilanalytics': ['prices/templates/*.html']},
     include_package_data=True,
 )

@@ -72,7 +72,7 @@ deploy:
     TWINE_PASSWORD: $PRODUCTION_PASSWORD
   script:
     - pip install twine
-    - python setup.py sdist
+    - python setup.py bdist_wheel
     - twine upload dist/*
   only:
     - tags
