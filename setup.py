@@ -15,7 +15,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["pandas", "requests", "commodutil", "commodplot", "python-dotenv"],
+    install_requires=["pandas", "requests", "commodutil", "commodplot", "python-dotenv", "cachetools", "beautifulsoup4"],
     python_requires=">=3.8",
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
