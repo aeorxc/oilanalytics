@@ -25,7 +25,6 @@ include:
 
 pytest:
   stage: test
-  image: "python:3.9"
   script:
     - pytest --junitxml=report.xml
   artifacts:
