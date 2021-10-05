@@ -20,17 +20,18 @@ include:
   - template: Jobs/Code-Quality.gitlab-ci.yml
   - template: Jobs/Deploy.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
 
 
-test:
+pytest:
   stage: test
   image: "python:3.9"
-  before_script:
-    - pip install -r requirements-dev.txt
   script:
-    - python -m pytest
+    - pytest --junitxml=report.xml
+    artifacts:
+      when: always
+      reports:
+        junit: report.xml
 
 coverage:
     stage: test
