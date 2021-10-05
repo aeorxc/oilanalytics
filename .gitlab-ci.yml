@@ -28,10 +28,10 @@ pytest:
   image: "python:3.9"
   script:
     - pytest --junitxml=report.xml
-    artifacts:
-      when: always
-      reports:
-        junit: report.xml
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
 
 coverage:
     stage: test
