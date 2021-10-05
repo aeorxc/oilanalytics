@@ -25,6 +25,8 @@ include:
 
 pytest:
   stage: test
+  before_script:
+    - pip install -r requirements-dev.txt
   script:
     - pytest --junitxml=report.xml
   artifacts:
