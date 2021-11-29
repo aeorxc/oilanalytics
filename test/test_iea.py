@@ -1,0 +1,1 @@
+import pandas as pdfrom oilanalytics.iea import omrdef test_read_world_snd_table1():    res = omr.read_world_snd_table1()    assert isinstance(res, pd.DataFrame)def test_comparable_snd_table():    res = omr.comparable_snd_table()    assert isinstance(res, pd.DataFrame)
