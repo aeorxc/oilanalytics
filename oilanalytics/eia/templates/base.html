@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" rel="stylesheet">
+    <title>{{ pagetitle }}</title>
+</head>
+<body>
+<p>Last generated: {{ last_gen_time.strftime('%d %b %Y %H:%M') }}</p>
+<a id="top"></a>
+
+<table border="2">
+    <tr>
+        <td><a href="summary.aspx">Summary</a></td>
+        <td><a href="crude.aspx">Crude</a></td>
+        <td><a href="gasoline.aspx">Gasoline</a></td>
+        <td><a href="gasoline.aspx">Gasoline</a></td>
+        <td><a href="naphtha.aspx">Naphtha</a></td>
+        <td><a href="heatingoil.aspx">Heating oil</a></td>
+        <td><a href="jet.aspx">Jet</a></td>
+        <td><a href="fueloil.aspx">Fuel Oil</a></td>
+</table>
+
+<h2>{{ pagetitle }}</h2>
+
+{% block content %}{% endblock %}
+
+<a href="#top">Back to top</a>
+</body>
+</html>
