@@ -1,1 +1,0 @@
-import pandas as pdfrom commodplot import commodplot as cpldef seas_chart(df:pd.DataFrame, series: str, title: str):    fig = cpl.seas_line_plot(df[series], title=title, shaded_range=5, average_line=5, histfreq='W', visible_line_years=3)    return fig
