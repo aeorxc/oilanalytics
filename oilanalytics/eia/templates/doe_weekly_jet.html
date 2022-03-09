@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import "doe_weekly_macros.html" as m %}
+
+{% block content %}
+    <style>
+        table, th, td {
+        border:1px solid black;
+    }
+    </style>
+
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJSTUS1', title='Jet Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJUPUS2', title='Jet Product Supplied') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJRPUS2', title='Jet Production') }}</p></div>
+    </div>
+
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJIMUS2', title='Jet Imports') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJEXUS2', title='Jet Exports') }}</p></div>
+    </div>
+
+    <H4>PADD 1</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJSTP11', title='Jet Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 2</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJSTP21', title='Jet Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 3</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJSTP31', title='Jet Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 4</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJSTP41', title='Jet Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 5</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WKJSTP51', title='Jet Stocks') }}</p></div>
+    </div>
+{% endblock %}

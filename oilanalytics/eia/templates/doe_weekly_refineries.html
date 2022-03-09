@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% import "doe_weekly_macros.html" as m %}
+
+{% block content %}
+    <style>
+        table, th, td {
+        border:1px solid black;
+    }
+    </style>
+
+
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WCRRIUS2', title='Crude Input into Refineries') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report']*1000, 'WPULEUS3', title='Refinery Utilisation') }}</p></div>
+    </div>
+
+    <H4>PADD 1</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WCRRIP12', title='PADD 1 Refinery inputs') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report']*1000, 'W_NA_YUP_R10_PER', title='Refinery Utilisation PADD 1 (%)') }}</p></div>
+    </div>
+
+    <H4>PADD 2</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WCRRIP22', title='PADD 2 Refinery inputs') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report']*1000, 'W_NA_YUP_R20_PER', title='Refinery Utilisation PADD 2 (%)') }}</p></div>
+    </div>
+
+    <H4>PADD 3</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WCRRIP32', title='PADD 3 Refinery inputs') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report']*1000, 'W_NA_YUP_R30_PER', title='Refinery Utilisation PADD 3 (%)') }}</p></div>
+    </div>
+
+    <H4>PADD 4</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WCRRIP42', title='PADD 4 Refinery inputs') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report']*1000, 'W_NA_YUP_R40_PER', title='Refinery Utilisation PADD 4 (%)') }}</p></div>
+    </div>
+
+    <H4>PADD 5</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WCRRIP52', title='PADD 5 Refinery inputs') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report']*1000, 'W_NA_YUP_R50_PER', title='Refinery Utilisation PADD 5 (%)') }}</p></div>
+    </div>
+
+{% endblock %}

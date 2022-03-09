@@ -10,17 +10,25 @@
 <p>Last generated: {{ last_gen_time.strftime('%d %b %Y %H:%M') }}</p>
 <a id="top"></a>
 
+
+<style type="text/css">
+  td {
+    padding: 0 15px;
+  }
+</style>
+
 <table border="2">
     <tr>
         <td><a href="summary.aspx">Summary</a></td>
         <td><a href="crude.aspx">Crude</a></td>
+        <td><a href="refineries.aspx">Refineries</a></td>
         <td><a href="gasoline.aspx">Gasoline</a></td>
-        <td><a href="naphtha.aspx">Naphtha</a></td>
-        <td><a href="heatingoil.aspx">Heating oil</a></td>
+        <td><a href="distillates.aspx">Distillates</a></td>
         <td><a href="jet.aspx">Jet</a></td>
-        <td><a href="fueloil.aspx">Fuel Oil</a></td>
+        <td><a href="fuel.aspx">Fuel Oil</a></td>
+        <td><a href="lpg.aspx">LPG</a></td>
+        <td><a href="ethanol.aspx">Ethanol</a></td>
 </table>
-
 <h2>{{ pagetitle }}</h2>
 
 {% block content %}{% endblock %}

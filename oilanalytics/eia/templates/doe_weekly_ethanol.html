@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "doe_weekly_macros.html" as m %}
+
+{% block content %}
+    <style>
+        table, th, td {
+        border:1px solid black;
+    }
+    </style>
+
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_SAE_NUS_MBBL', title='Ethanol Stock') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_YIR_NUS_MBBLD', title='Ethanol Demand') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_YOP_NUS_MBBLD_4wk', title='4-week Ethanol Production') }}</p></div>
+    </div>
+
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_YOP_NUS_MBBLD', title='Ethanol Production') }}</p></div>
+    </div>
+
+    <H4>PADD 1</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_SAE_R10_MBBL', title='Ethanol Stock') }}</p></div>
+    </div>
+
+
+    <H4>PADD 2</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_SAE_R20_MBBL', title='Ethanol Stock') }}</p></div>
+    </div>
+
+    <H4>PADD 3</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_SAE_R30_MBBL', title='Ethanol Stock') }}</p></div>
+    </div>
+
+
+    <H4>PADD 4</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_SAE_R40_MBBL', title='Ethanol Stock') }}</p></div>
+    </div>
+
+    <H4>PADD 5</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPOOXE_SAE_R50_MBBL', title='Ethanol Stock') }}</p></div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% import "doe_weekly_macros.html" as m %}
+
+{% block content %}
+    <style>
+        table, th, td {
+        border:1px solid black;
+    }
+    </style>
+
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRSTUS1', title='Total LPG Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRUP_NUS_2', title='Total Propane & Propylene Product Supplied') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRTP_NUS_2', title='Total Propane Production') }}</p></div>
+    </div>
+
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRIM_NUS-Z00_2', title='Propane Imports') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPLLPZ_EEX_NUS-Z00_MBBLD', title='Propane & Propylene Exports') }}</p></div>
+    </div>
+
+    <H4>PADD 1</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRSTP11', title='Total Propane Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1A</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRST1A1', title='Total Propane Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1B</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRST1B1', title='Total Propane Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1C</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRST1C1', title='Total Propane Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 2</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRSTP21', title='Total Propane Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 3</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRSTP31', title='Total Propane Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 4 & PADD 5</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRST_R4N5_1', title='Total Propane Stocks') }}</p></div>
+    </div>
+
+
+{% endblock %}

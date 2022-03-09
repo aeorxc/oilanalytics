@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% import "doe_weekly_macros.html" as m %}
+
+{% block content %}
+    <style>
+        table, th, td {
+        border:1px solid black;
+    }
+    </style>
+
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDISTUS1', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_NUS_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_NUS_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIUPUS2', title='Distillate Demand') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIRPUS2_4wk', title='4wk Avg Total Production') }}</p></div>
+    </div>
+
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIRPUS2', title='Distillate Supply') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'Dist Yield', title='Distillate Yield') }}</p></div>
+    </div>
+
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIIMUS2', title='Total Distillates Imports') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIEXUS2', title='Total Distillates Exports') }}</p></div>
+    </div>
+
+    <H4>PADD 1</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDISTP11', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R10_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R10_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1A</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIST1A1', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R1X_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R1X_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1B</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIST1B1', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R1Y_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R1Y_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1C</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIST1C1', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R1Z_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R1Z_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 2</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDISTP21', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R20_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R20_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 3</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDISTP31', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R30_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R30_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 4</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDISTP41', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R40_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R40_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 5</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDISTP51', title='Total Dist. Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD0ST_R50_1', title='<=15ppm Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WD1ST_R50_1', title='15-500ppm Stocks') }}</p></div>
+    </div>
+{% endblock %}

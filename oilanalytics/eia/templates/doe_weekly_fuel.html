@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% import "doe_weekly_macros.html" as m %}
+
+{% block content %}
+    <style>
+        table, th, td {
+        border:1px solid black;
+    }
+    </style>
+
+    <div class="row no-gutters" >
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WRESTUS1', title='Total Fuel Stocks') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREUPUS2', title='Fuel Product Supplied') }}</p></div>
+        <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WRERPUS2', title='Fuel Production') }}</p></div>
+    </div>
+
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREEXUS2', title='Fuel Imports') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREIMUS2', title='Fuel Exports') }}</p></div>
+    </div>
+
+    <H4>PADD 1</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WRESTP11', title='Fuel Stocks') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREIM_R10-Z00_2', title='Fuel Imports') }}</p></div>
+    </div>
+
+    <H4>PADD 1A</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREST1A1', title='Fuel Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1B</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREST1B1', title='Fuel Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 1C</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-12 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREST1C1', title='Fuel Stocks') }}</p></div>
+    </div>
+
+    <H4>PADD 2</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WRESTP21', title='Fuel Stocks') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREIM_R20-Z00_2', title='Fuel Imports') }}</p></div>
+    </div>
+
+    <H4>PADD 3</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WRESTP31', title='Fuel Stocks') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREIM_R30-Z00_2', title='Fuel Imports') }}</p></div>
+    </div>
+
+    <H4>PADD 4</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WRESTP41', title='Fuel Stocks') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREIM_R40-Z00_2', title='Fuel Imports') }}</p></div>
+    </div>
+
+    <H4>PADD 5</H4>
+    <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WRESTP51', title='Fuel Stocks') }}</p></div>
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WREIM_R50-Z00_2', title='Fuel Imports') }}</p></div>
+    </div>
+{% endblock %}
