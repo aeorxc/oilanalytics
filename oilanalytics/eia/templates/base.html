@@ -29,6 +29,7 @@
         <td><a href="lpg.aspx">LPG</a></td>
         <td><a href="ethanol.aspx">Ethanol</a></td>
 </table>
+<p>Release Date: {{ data['release_date'].strftime('%d %b %Y') }}</p>
 <h2>{{ pagetitle }}</h2>
 
 {% block content %}{% endblock %}
