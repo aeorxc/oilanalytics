@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="oilanalytics",
-    version="0.2.0",
+    version="0.2.1",
     author="aeorxc",
     description="Utilities for oil analytics",
     url="https://github.com/aeorxc/oilanalytics",
@@ -13,7 +13,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System ::jijij9oj OS Independent",
+        "Operating System :: OS Independent",
     ],
     install_requires=["pandas", "requests", "commodutil", "commodplot", "python-dotenv", "cachetools",
                       "beautifulsoup4", "eiapy"],
