@@ -58,7 +58,7 @@ pages:
   dependencies:
     - coverage
   script:
-    - mv htmlcov/ public/
+    - mv python_app/htmlcov/ public/
   artifacts:
     paths:
       - public
