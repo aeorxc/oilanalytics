@@ -48,9 +48,9 @@ coverage:
   coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
   artifacts:
     reports:
-      cobertura: coverage.xml
-    paths:
-      - htmlcov/
+      coverage_report:
+        coverage_format: cobertura
+        path: python_app/coverage.xml
 
 
 pages:
