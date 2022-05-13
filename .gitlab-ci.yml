@@ -50,7 +50,7 @@ coverage:
     reports:
       coverage_report:
         coverage_format: cobertura
-        path: python_app/htmlcov/
+        path: htmlcov/
 
 
 pages:
@@ -58,7 +58,7 @@ pages:
   dependencies:
     - coverage
   script:
-    - mv python_app/htmlcov/ public/
+    - mv htmlcov/ public/
   artifacts:
     paths:
       - public
