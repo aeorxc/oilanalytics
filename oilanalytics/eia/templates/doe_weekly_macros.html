@@ -1,1 +1,18 @@
-{% macro seas_charts(series, title) %}    <p> cpl.seas_chart(data[series], title=title)  </p>{% endmacro %}{% macro seas_charts_3(series) %}    <div class="row no-gutters">        {% for key, value in series.items() -%}            {% if key is none %}                <div class="col-md-4"><p></p></div>            {% else %}                <div class="col-md-4"><p>{{ cu.seas_chart_weekly(key, title=value) }}</p></div>            {% endif %}        {% endfor %}    </div>{% endmacro %}
+
+
+{% macro seas_charts(series, title) %}
+    <p> cpl.seas_chart(data[series], title=title)  </p>
+{% endmacro %}
+
+
+{% macro seas_charts_3(series) %}
+    <div class="row no-gutters">
+        {% for key, value in series.items() -%}
+            {% if key is none %}
+                <div class="col-md-4"><p></p></div>
+            {% else %}
+                <div class="col-md-4"><p>{{ cu.seas_chart_weekly(key, title=value) }}</p></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endmacro %}

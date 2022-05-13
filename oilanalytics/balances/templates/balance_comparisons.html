@@ -1,1 +1,21 @@
-{% extends "base.html" %}{% block content %}<H4>Crude/Liquids Supply & Demand Balance</H4><p></p><H5>IEA</H5><div class="row no-gutters">    <div class="col-md-4"><p>{{ data.iea_table }}</p></div></div><H5>EIA</H5><div class="row no-gutters">    <div class="col-md-4"><p>{{ data.eia_table }}</p></div></div><H5>OPEC</H5><div class="row no-gutters">    <div class="col-md-4"><p>{{ data.opec_table }}</p></div></div>{% endblock %}
+{% extends "base.html" %}
+
+{% block content %}
+
+<H4>Crude/Liquids Supply & Demand Balance</H4>
+<p></p>
+<H5>IEA</H5>
+<div class="row no-gutters">
+    <div class="col-md-4"><p>{{ data.iea_table }}</p></div>
+</div>
+<H5>EIA</H5>
+<div class="row no-gutters">
+    <div class="col-md-4"><p>{{ data.eia_table }}</p></div>
+</div>
+<H5>OPEC</H5>
+<div class="row no-gutters">
+    <div class="col-md-4"><p>{{ data.opec_table }}</p></div>
+</div>
+
+
+{% endblock %}

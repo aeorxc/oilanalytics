@@ -1,1 +1,24 @@
-{% extends "base.html" %}{% block content %}<H4>Refinery Turnarounds</H4><p></p><H5>CDU Global</H5><div class="row no-gutters">    <div class="col-md-6"><p>{{ data.global_cdu_tars }}</p></div>    <div class="col-md-6"><p>{{ data.global_cdu_runs_impact }}</p></div></div><H5>Secondary Units</H5><div class="row no-gutters">    <div class="col-md-4"><p>{{ data.global_fcc_tars }}</p></div>    <div class="col-md-4"><p>{{ data.global_hcu_tars }}</p></div>    <div class="col-md-4"><p>{{ data.global_cok_tars }}</p></div></div><H5>US</H5><div class="row no-gutters">    <div class="col-md-4"><p>{{ data.opec_table }}</p></div></div>{% endblock %}
+{% extends "base.html" %}
+
+{% block content %}
+
+<H4>Refinery Turnarounds</H4>
+<p></p>
+<H5>CDU Global</H5>
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ data.global_cdu_tars }}</p></div>
+    <div class="col-md-6"><p>{{ data.global_cdu_runs_impact }}</p></div>
+</div>
+<H5>Secondary Units</H5>
+<div class="row no-gutters">
+    <div class="col-md-4"><p>{{ data.global_fcc_tars }}</p></div>
+    <div class="col-md-4"><p>{{ data.global_hcu_tars }}</p></div>
+    <div class="col-md-4"><p>{{ data.global_cok_tars }}</p></div>
+</div>
+<H5>US</H5>
+<div class="row no-gutters">
+    <div class="col-md-4"><p>{{ data.opec_table }}</p></div>
+</div>
+
+
+{% endblock %}
