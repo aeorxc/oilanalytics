@@ -5,9 +5,9 @@ import eikon as ek
 
 def setup_eikon():
     try:
-        eikonkey = os.environ['EIKON_KEY']
+        eikonkey = os.environ["EIKON_KEY"]
 
     except KeyError:
-        eikonkey = ''
+        eikonkey = ""
 
     ek.set_app_key(eikonkey)
