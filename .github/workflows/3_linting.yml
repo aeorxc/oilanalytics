@@ -12,37 +12,37 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        python-version: ['3.9']
+        os: [ ubuntu-latest ]
+        python-version: [ '3.9' ]
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
     timeout-minutes: 10
 
     steps:
-    - name: Check out code repository
-      uses: actions/checkout@v2
+      - name: Check out code repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements_dev.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements_dev.txt
 
-    - name: Lint with pylint
-      run: |
-        pylint oilanalytics
-        pylint tests
+      - name: Lint with pylint
+        run: |
+          pylint oilanalytics
+          pylint tests
 
-    - name: Run Black check
-      uses: psf/black@stable
+      - name: Run Black check
+        uses: psf/black@stable
 
-    - name: Check type hints with mypy
-      run: |
-        mypy --strict oilanalytics
-        mypy --strict tests
+      - name: Check type hints with mypy
+        run: |
+          mypy --strict oilanalytics
+          mypy --strict tests
