@@ -20,6 +20,12 @@
     </div>
 
     <div class="row no-gutters" >
+        <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'distillate_dc', title='Distillate Days Coverage') }}</p></div>
+
+    </div>
+
+
+    <div class="row no-gutters" >
         <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WDIRPUS2', title='Distillate Supply', title_url=data['eia_url']) }}</p></div>
         <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'Dist Yield', title='Distillate Yield', title_url=data['eia_url']) }}</p></div>
     </div>
