@@ -44,4 +44,4 @@ jobs:
       - name: Check type hints with mypy
         run: |
           mypy --strict oilanalytics
-          mypy --strict tests
+          mypy --strict test
