@@ -50,7 +50,7 @@ coverage:
     reports:
       coverage_report:
         coverage_format: cobertura
-        path: htmlcov/
+        path: python_app/htmlcov/
 
 
 pages:
