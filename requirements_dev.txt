@@ -1,1 +1,1 @@
--r requirements.txtpytest
+-r requirements.txtpytestcoveragepylintblack

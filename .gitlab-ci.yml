@@ -26,7 +26,7 @@ include:
 pytest:
   stage: test
   before_script:
-    - pip install -r requirements-dev.txt
+    - pip install -r requirements_dev.txt
   script:
     - pytest --junitxml=report.xml
   artifacts:
@@ -38,7 +38,7 @@ coverage:
   stage: test
   image: "python:3.9"
   before_script:
-    - pip install -r requirements-dev.txt
+    - pip install -r requirements_dev.txt
     - pip install pytest
     - pip install coverage
   script:
