@@ -36,7 +36,7 @@ jobs:
 
     - name: Lint with pylint
       run: |
-        pylint actionscicd
+        pylint oilanalytics
         pylint tests
 
     - name: Run Black check
@@ -44,5 +44,5 @@ jobs:
 
     - name: Check type hints with mypy
       run: |
-        mypy --strict actionscicd
+        mypy --strict oilanalytics
         mypy --strict tests
