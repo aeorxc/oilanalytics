@@ -36,8 +36,7 @@ jobs:
 
       - name: Lint with pylint
         run: |
-          pylint oilanalytics
-          pylint test
+          pylint oilanalytics          
 
       - name: Run Black check
         uses: psf/black@stable
