@@ -3,3 +3,4 @@ pytest
 coverage
 pylint
 black
+mypy
