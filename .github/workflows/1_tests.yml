@@ -44,5 +44,3 @@ jobs:
       - name: Run unittest tests
         run: pytest
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.35
