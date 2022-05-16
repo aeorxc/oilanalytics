@@ -14,3 +14,5 @@ def test_read_report():
 def test_gen_page():
     res = weeklypetreport.gen_page("Test", template="templates/doe_weekly_summary.html")
     assert res is not None
+
+

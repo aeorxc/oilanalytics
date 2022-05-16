@@ -2,7 +2,9 @@ import pandas as pd
 from commodplot import jinjautils as ju
 from commodplot.messaging import compose_and_send_jinja_report
 from excel_scraper import excel_scraper
-
+from datetime import datetime
+import urllib3
+import re
 from oilanalytics.utils import chartutils as cu
 
 fileloc = "https://ir.eia.gov/wpsr/psw09.xls"
@@ -173,6 +175,24 @@ def gen_and_send_email(
         receiver_email=receiver_email,
         sender_email=sender_email,
     )
+
+
+def extract_release_date(url:str) -> datetime.date:
+    """
+    Given a url, extract the release date to allow comparisons between runs and detect if report has been updated
+    :param url:
+    :return:
+    """
+
+    http = urllib3.PoolManager(cert_reqs='CERT_NONE', assert_hostname=False)
+    pg = http.request('GET', url)
+
+    # Get html docstring
+    pg_data = str(pg.data)
+    x = re.search('\d{1,2}-[a-zA-Z]{3}-\d{4}', pg_data)
+    if x:
+        release_date = datetime.datetime.strptime(x[0], '%d-%b-%Y')
+        return release_date
 
 
 if __name__ == "__main__":

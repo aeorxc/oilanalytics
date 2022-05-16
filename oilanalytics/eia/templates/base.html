@@ -7,7 +7,7 @@
     <title>{{ pagetitle }}</title>
 </head>
 <body>
-<p>Last generated: {{ last_gen_time.strftime('%d %b %Y %H:%M') }}</p>
+<p align="right">Last generated: {{ last_gen_time.strftime('%d %b %Y %H:%M') }}</p>
 <a id="top"></a>
 
 
@@ -30,7 +30,7 @@
         <td><a href="lpg.html">LPG</a></td>
         <td><a href="ethanol.html">Ethanol</a></td>
 </table>
-<p>Release Date: {{ data['release_date'].strftime('%d %b %Y') }}</p>
+<p>DOE Report Release Date: {{ data['release_date'].strftime('%d-%b-%Y') }}</p>
 <h2>{{ pagetitle }}</h2>
 
 {% block content %}{% endblock %}
