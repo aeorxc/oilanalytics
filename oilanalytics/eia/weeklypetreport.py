@@ -177,21 +177,21 @@ def gen_and_send_email(
     )
 
 
-def extract_release_date(url:str) -> datetime.date:
+def extract_release_date(url: str) -> datetime.date:
     """
     Given a url, extract the release date to allow comparisons between runs and detect if report has been updated
     :param url:
     :return:
     """
 
-    http = urllib3.PoolManager(cert_reqs='CERT_NONE', assert_hostname=False)
-    pg = http.request('GET', url)
+    http = urllib3.PoolManager(cert_reqs="CERT_NONE", assert_hostname=False)
+    pg = http.request("GET", url)
 
     # Get html docstring
     pg_data = str(pg.data)
-    x = re.search('\d{1,2}-[a-zA-Z]{3}-\d{4}', pg_data)
+    x = re.search("\d{1,2}-[a-zA-Z]{3}-\d{4}", pg_data)
     if x:
-        release_date = datetime.datetime.strptime(x[0], '%d-%b-%Y')
+        release_date = datetime.strptime(x[0], "%d-%b-%Y")
         return release_date
 
 
