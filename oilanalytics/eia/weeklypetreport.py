@@ -7,6 +7,8 @@ import urllib3
 import re
 from oilanalytics.utils import chartutils as cu
 
+email_test_receivers = ['gibran.afzal@rwe.com', 'owen.hulme@rwe.com']
+
 fileloc = "https://ir.eia.gov/wpsr/psw09.xls"
 
 eia_url = "https://www.eia.gov/opendata/qb.php?sdid=PET.%s.W"
@@ -172,7 +174,7 @@ def gen_and_send_email(
         data=data,
         template="doe_weekly_email.html",
         package_loader_name="oilanalytics.eia",
-        receiver_email=receiver_email,
+        receiver_email=email_test_receivers,
         sender_email=sender_email,
     )
 
