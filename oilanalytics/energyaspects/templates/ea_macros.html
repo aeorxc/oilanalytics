@@ -1,0 +1,5 @@
+{% macro chart(data, id, title_url=None) %}
+    {% set title_url = data.get('title_url', None) %}
+    {{ cu.seas_chart(data['df'], series=id, title=data['df'].attrs['metadata'][id]['description'], title_url=title_url) }}
+
+{% endmacro %}

@@ -18,6 +18,8 @@ futures_dict = {
     "RB.UNL": "RBOB",
     "HO": "HO",
     "FP": "ULSD",
+    "C": "Corn",
+    "S": "Soybeans",
 }
 
 crude_futures = {"FB": "Brent", "CL": "WTI", "DME.OQ": "Dubai"}
@@ -202,6 +204,7 @@ def generate_structure_page(
     if file_path:
         logger.info(f"generated structure page to {file_path}")
     return ju.render_html(
+        data,
         data,
         "structure.html",
         filename=file_path,

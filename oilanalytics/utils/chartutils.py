@@ -30,7 +30,13 @@ def format_chart(plotly_plot, chart_type=None, title=None):
     return plotly_plot
 
 
-def seas_chart_weekly(df: pd.DataFrame, series: str, title: str, title_url: str = None):
+def seas_chart(
+    df: pd.DataFrame,
+    series: str,
+    title: str,
+    title_url: str = None,
+    histfreq: str = None,
+):
     if title_url:
         title_url_f = title_url % series
         title = f'<a href="{title_url_f}">{title}</a>'
@@ -40,11 +46,17 @@ def seas_chart_weekly(df: pd.DataFrame, series: str, title: str, title_url: str 
         title=title,
         shaded_range=5,
         average_line=5,
-        histfreq="W",
+        histfreq=histfreq,
         visible_line_years=3,
     )
 
     return fig
+
+
+def seas_chart_weekly(df: pd.DataFrame, series: str, title: str, title_url: str = None):
+    return seas_chart(
+        df=df, series=series, title=title, title_url=title_url, histfreq="W"
+    )
 
 
 def gen_wow_summary_table(df_input):
