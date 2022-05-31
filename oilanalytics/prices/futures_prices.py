@@ -18,8 +18,6 @@ futures_dict = {
     "RB.UNL": "RBOB",
     "HO": "HO",
     "FP": "ULSD",
-    "C": "Corn",
-    "S": "Soybeans",
 }
 
 crude_futures = {"FB": "Brent", "CL": "WTI", "DME.OQ": "Dubai"}
