@@ -202,9 +202,8 @@ def generate_structure_page(
     if file_path:
         logger.info(f"generated structure page to {file_path}")
     return ju.render_html(
-        data,
-        data,
-        "structure.html",
+        data=data,
+        template="structure.html",
         filename=file_path,
         package_loader_name="oilanalytics.prices",
     )
