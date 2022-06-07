@@ -1,6 +1,7 @@
 {% macro chart(data, id, title_url=None) %}
     {% set metadata = data['df'].attrs['metadata'] %}
+    {% set title = metadata.get(id).get('description') %}
     {% set title_url = data.get('title_url', None) %}
-    {{ cu.seas_chart(data['df'], series=id, title=metadata[id]['description'], title_url=title_url) }}
+    {{ cu.seas_chart(data['df'], series=id, title=title, title_url=title_url) }}
 
 {% endmacro %}
