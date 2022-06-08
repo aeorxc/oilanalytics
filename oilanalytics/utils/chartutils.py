@@ -59,7 +59,7 @@ def seas_chart_weekly(df: pd.DataFrame, series: str, title: str, title_url: str 
     )
 
 
-def gen_wow_summary_table(df_input):
+def gen_wow_summary_table(df_input, precision=2, single_date=False):
     """
     generic method to create a summary table for individual location page
     :param df_input: DataFrame to summarise. Must have datetime index
@@ -71,10 +71,13 @@ def gen_wow_summary_table(df_input):
     df_sum.index.rename("Product", inplace=True)
     df_sum = df_sum[
         [df_sum.columns[1], df_sum.columns[0]] + df_sum.columns[2:].tolist()
-    ]  # swap first 2 columns
+        ]  # swap first 2 columns
     df_sum.columns.name = None
     df_sum.index.name = None
+    if single_date:
+        df_sum.rename(columns={df_sum.columns[1]: "Last Week"}, inplace=True)
     get_summary_table = cplt.generate_table(
-        df_sum, precision=2, accounting_col_columns=["Change", "%"]
+        df_sum, precision=precision, accounting_col_columns=["Change", "%"]
     )
+
     return get_summary_table
