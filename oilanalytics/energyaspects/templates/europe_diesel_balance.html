@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "ea_macros.html" as m %}
+
+
+{% block content %}
+
+<H4>Stocks</H4>
+
+
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ m.chart(data, 11314 )  }}</p></div>
+    <div class="col-md-6"><p>{{ m.chart(data, 11284 )  }}</p></div>
+</div>
+
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ m.chart(data, 11286 )  }}</p></div>
+
+</div>
+
+<H4>Supply</H4>
+
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ m.chart(data, 11281 )  }}</p></div>
+    <div class="col-md-6"><p>{{ m.chart(data, 11279 )  }}</p></div>
+</div>
+
+
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ m.chart(data, 11278 )  }}</p></div>
+</div>
+
+<H4>Demand</H4>
+
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ m.chart(data, 11280 )  }}</p></div>
+</div>
+
+
+<H4>Imports / Exports</H4>
+
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ m.chart(data, 11283 )  }}</p></div>
+    <div class="col-md-6"><p>{{ m.chart(data, 11282 )  }}</p></div>
+</div>
+
+<H4>Misc</H4>
+
+<div class="row no-gutters">
+    <div class="col-md-6"><p>{{ m.chart(data, 11285 )  }}</p></div>
+</div>
+
+{% endblock %}

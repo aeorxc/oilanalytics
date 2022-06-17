@@ -71,7 +71,7 @@ def gen_wow_summary_table(df_input, precision=2, single_date=False):
     df_sum.index.rename("Product", inplace=True)
     df_sum = df_sum[
         [df_sum.columns[1], df_sum.columns[0]] + df_sum.columns[2:].tolist()
-        ]  # swap first 2 columns
+    ]  # swap first 2 columns
     df_sum.columns.name = None
     df_sum.index.name = None
     if single_date:
