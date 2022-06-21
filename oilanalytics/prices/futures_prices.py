@@ -27,7 +27,7 @@ default_cust_charts = {"JunJun": "JunJun", "DecDec": "DecDec"}
 
 @cachetools.func.ttl_cache(ttl=100 * 60)
 def get_contracts(
-    limsymbol: str, start_year: int = 2019, end_year: int = 2023
+    limsymbol: str, start_year: int = 2019, end_year: int = 2024
 ) -> pd.DataFrame:
     contracts = lim.contracts(
         limsymbol,
