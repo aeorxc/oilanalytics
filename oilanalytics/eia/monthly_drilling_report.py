@@ -5,6 +5,7 @@ from excel_scraper import excel_scraper
 from datetime import datetime
 import urllib3
 import re
+import requests
 from oilanalytics.utils import chartutils as cu
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
@@ -13,6 +14,8 @@ from commodplot import commodplot as cpl
 
 filenames = ["dpr-data", "duc-data"]
 fileloc = "https://www.eia.gov/petroleum/drilling//xls/%s.xlsx"
+
+eia_webpage = "https://www.eia.gov/petroleum/drilling/"
 
 sheets_to_graph = [
     "Bakken Region",
@@ -29,6 +32,14 @@ all_sheets = [
     "Niobrara Region",
     "Permian Region"
 ]
+
+
+def read_release_date():
+    r = requests.get(eia_webpage)
+    x = re.search('[a-zA-Z]{4} \d{1,2}, \d{4}', str(r.text))
+    if x:
+        release_date = datetime.strptime(x[0], "%B %d, %Y")
+    return release_date
 
 
 def create_dualaxis_graph(df, title=None):
@@ -99,6 +110,7 @@ def read_duc_report(name):
 
 def get_jinja_dict(email=False):
     data = {'title': 'EIA Productivity Report', 'name': 'EIA Productivity Report'}
+    data['release_date'] = read_release_date()
     data['rig_charts'] = read_rig_report(filenames[0])
     data['duc_charts'] = read_duc_report(filenames[1])
     if email:

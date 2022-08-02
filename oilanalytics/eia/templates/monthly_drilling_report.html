@@ -20,7 +20,7 @@
 
 
 <h2>{{ pagetitle }}</h2>
-
+<p>EIA Monthly Drilling Report Release Date: {{ data['release_date'].strftime('%d-%b-%Y') }}</p>
 {% if 'email' in data.keys() %}
 <td><a href="proximo.energy.local/oil-reports/DOE/eia_monthly_drilling.html">Link to Dashboard</a></td>
 {% endif %}
