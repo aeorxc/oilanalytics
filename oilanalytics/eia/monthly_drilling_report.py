@@ -36,9 +36,12 @@ all_sheets = [
 
 def read_release_date():
     r = requests.get(eia_webpage)
-    x = re.search('[a-zA-Z]{4} \d{1,2}, \d{4}', str(r.text))
+    # trim string to be after release date to avoid getting wrong date
+    trimmed_string = str(r.text).split("Release Date:", 1)[1]
+    x = re.search('[a-zA-Z]{3,9} \d{1,2}, \d{4}', trimmed_string)
     if x:
         release_date = datetime.strptime(x[0], "%B %d, %Y")
+
     return release_date
 
 
@@ -71,14 +74,15 @@ def read_rig_report(name):
         title = d.index.name
         d.index.name = None
         tot_prod_list.append(d["Total production"].rename(title))
-        fig = create_dualaxis_graph(d[['Production per rig', 'Rig count']], title=title)
+        fig = create_dualaxis_graph(d[['Production per rig', 'Rig count']], title=f"{title} Rig Count")
         graphs.append(fig)
         d['MoM'] = d['Total production'] - d['Total production'].shift(1)
         fig_mom = create_dualaxis_graph(d[['Total production', 'MoM']], title=f"{title} Production")
         graphs.append(fig_mom)
     total_prod = pd.concat(tot_prod_list, axis=1)
     fig = cpl.seas_line_plot(total_prod.sum(axis=1).astype(float),
-                             title="Total Shale Production - 3 Main Plays")
+                             title="Total Shale Production - 3 Main Plays",
+                             precision_format='{0:,.0f}')
     graphs.append(fig)
     total_prod["YoY Changes"] = total_prod.sum(axis=1) - total_prod.sum(axis=1).shift(12)
     total_prod["YoY Average Changes"] = total_prod["YoY Changes"].rolling(window=12).mean()
@@ -108,13 +112,12 @@ def read_duc_report(name):
     return graphs
 
 
-def get_jinja_dict(email=False):
+def get_jinja_dict():
     data = {'title': 'EIA Productivity Report', 'name': 'EIA Productivity Report'}
     data['release_date'] = read_release_date()
     data['rig_charts'] = read_rig_report(filenames[0])
     data['duc_charts'] = read_duc_report(filenames[1])
-    if email:
-        data['email'] = True
+
     return data
 
 
@@ -128,11 +131,13 @@ def generate_page(filename=None):
 
 def generate_email():
     compose_and_send_jinja_report('EIA Productivity Report',
-                                  data=get_jinja_dict(email=True),
-                                  template='monthly_drilling_report.html',
+                                  data=get_jinja_dict(),
+                                  template='monthly_drilling_report_email.html',
                                   package_loader_name='oilanalytics.eia',
                                   template_globals={'cu': cu})
 
 if __name__ == "__main__":
     # graphs = read_rig_report(filenames[0])
-    generate_page('test.html')
+    # generate_page('test.html')
+    # date = read_release_date()
+    generate_email()

@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" rel="stylesheet">
-    <title>{{ pagetitle }}</title>
-</head>
-<body>
-<p align="right">Last generated: {{ last_gen_time.strftime('%d %b %Y %H:%M') }}</p>
-<a id="top"></a>
 
-
-<style type="text/css">
-  td {
-    padding: 0 15px;
-  }
-
-</style>
-
-
-<h2>{{ pagetitle }}</h2>
-<p>EIA Monthly Drilling Report Release Date: {{ data['release_date'].strftime('%d-%b-%Y') }}</p>
+<td><a href="proximo.energy.local/oil-reports/DOE/eia_monthly_drilling.html">Link to Dashboard</a></td>
 
 
 <div class="row no-gutters">
@@ -61,7 +40,3 @@
     <div class="col-md-6"><p>{{ data['rig_charts'][2] }}</p></div>
     <div class="col-md-6"><p>{{ data['rig_charts'][3] }}</p></div>
 </div>
-
-<a href="#top">Back to top</a>
-</body>
-</html>
