@@ -3,19 +3,19 @@ from commodplot import jinjautils as ju
 from commodplot.messaging import compose_and_send_jinja_report
 from excel_scraper import excel_scraper
 from datetime import datetime
-import urllib3
 import re
 import requests
 from oilanalytics.utils import chartutils as cu
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 from commodplot import commodplot as cpl
+from bs4 import BeautifulSoup
 
 
 filenames = ["dpr-data", "duc-data"]
 fileloc = "https://www.eia.gov/petroleum/drilling//xls/%s.xlsx"
 
-eia_webpage = "https://www.eia.gov/petroleum/drilling/"
+eia_webpage = r"C:\Users\UI935452\Downloads\test.html"
 
 sheets_to_graph = [
     "Bakken Region",
@@ -35,13 +35,16 @@ all_sheets = [
 
 
 def read_release_date():
-    r = requests.get(eia_webpage)
-    # trim string to be after release date to avoid getting wrong date
-    trimmed_string = str(r.text).split("Release Date:", 1)[1]
-    x = re.search('[a-zA-Z]{3,9} \d{1,2}, \d{4}', trimmed_string)
-    if x:
-        release_date = datetime.strptime(x[0], "%B %d, %Y")
 
+    r = requests.get(eia_webpage)
+    x = []
+    soup = BeautifulSoup(r.content, 'html.parser')
+    for date in soup.find_all('span', {'class': 'date'}):
+        x.append(date)
+    x = str(x[0])
+    result = re.search('">(.*)</', x).group(1)
+    if result:
+        release_date = datetime.strptime(result, "%B %d, %Y")
     return release_date
 
 
