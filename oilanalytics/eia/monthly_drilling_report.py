@@ -15,13 +15,9 @@ from bs4 import BeautifulSoup
 filenames = ["dpr-data", "duc-data"]
 fileloc = "https://www.eia.gov/petroleum/drilling//xls/%s.xlsx"
 
-eia_webpage = r"C:\Users\UI935452\Downloads\test.html"
+eia_webpage = "https://www.eia.gov/petroleum/drilling/"
 
-sheets_to_graph = [
-    "Bakken Region",
-    "Eagle Ford Region",
-    "Permian Region"
-]
+sheets_to_graph = ["Bakken Region", "Eagle Ford Region", "Permian Region"]
 
 all_sheets = [
     "Anadarko Region",
@@ -30,7 +26,7 @@ all_sheets = [
     "Eagle Ford Region",
     "Haynesville Region",
     "Niobrara Region",
-    "Permian Region"
+    "Permian Region",
 ]
 
 

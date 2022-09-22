@@ -1,13 +1,19 @@
+import re
+from datetime import datetime
+from commodutil import pandasutil as pdu
 import pandas as pd
+import urllib3
 from commodplot import jinjautils as ju
 from commodplot.messaging import compose_and_send_jinja_report
 from excel_scraper import excel_scraper
-from datetime import datetime
-import urllib3
-import re
+
 from oilanalytics.utils import chartutils as cu
 
 fileloc = "https://ir.eia.gov/wpsr/psw09.xls"
+
+canada_importa_file_loc = (
+    "https://www.eia.gov/dnav/pet/hist_xls/W_EPC0_IM0_NUS-NCA_MBBLDw.xls"
+)
 
 eia_url = "https://www.eia.gov/opendata/qb.php?sdid=PET.%s.W"
 
@@ -41,6 +47,13 @@ def report_symbols() -> dict:
             d = ex.parse(tab, skiprows=[0]).head(1).iloc[0].to_dict()
             symbols = {**symbols, **d}
     return symbols
+
+
+def read_canada_imports():
+    df = excel_scraper.read_table(
+        canada_importa_file_loc, sheet_name="Data 1", skiprows=(0, 2), index_col=0
+    )
+    return df
 
 
 def read_report() -> pd.DataFrame:
@@ -90,6 +103,8 @@ def read_report() -> pd.DataFrame:
     res["mogas_dc"] = (res["WGTSTUS1"] / res["WGFUPUS2"]).rolling(window=4).mean()
     res["distillate_dc"] = (res["WDISTUS1"] / res["WDIRPUS2"]).rolling(window=4).mean()
     res["jet_dc"] = (res["WKJSTUS1"] / res["WKJUPUS2"]).rolling(window=4).mean()
+
+    res = pdu.mergets(res, read_canada_imports())
 
     return res, release_date
 
