@@ -17,11 +17,7 @@ fileloc = "https://www.eia.gov/petroleum/drilling//xls/%s.xlsx"
 
 eia_webpage = "https://www.eia.gov/petroleum/drilling/"
 
-sheets_to_graph = [
-    "Bakken Region",
-    "Eagle Ford Region",
-    "Permian Region"
-]
+sheets_to_graph = ["Bakken Region", "Eagle Ford Region", "Permian Region"]
 
 all_sheets = [
     "Anadarko Region",
@@ -30,7 +26,7 @@ all_sheets = [
     "Eagle Ford Region",
     "Haynesville Region",
     "Niobrara Region",
-    "Permian Region"
+    "Permian Region",
 ]
 
 
@@ -38,7 +34,7 @@ def read_release_date():
     r = requests.get(eia_webpage)
     # trim string to be after release date to avoid getting wrong date
     trimmed_string = str(r.text).split("Release Date:", 1)[1]
-    x = re.search('[a-zA-Z]{3,9} \d{1,2}, \d{4}', trimmed_string)
+    x = re.search("[a-zA-Z]{3,9} \d{1,2}, \d{4}", trimmed_string)
     if x:
         release_date = datetime.strptime(x[0], "%B %d, %Y")
 
@@ -59,7 +55,6 @@ def create_dualaxis_graph(df, title=None):
     return fig
 
 
-
 def read_rig_report(name):
     filename = fileloc % name
     ex = excel_scraper.read_excel_file(filename)
@@ -74,21 +69,33 @@ def read_rig_report(name):
         title = d.index.name
         d.index.name = None
         tot_prod_list.append(d["Total production"].rename(title))
-        fig = create_dualaxis_graph(d[['Production per rig', 'Rig count']], title=f"{title} Rig Count")
+        fig = create_dualaxis_graph(
+            d[["Production per rig", "Rig count"]], title=f"{title} Rig Count"
+        )
         graphs.append(fig)
-        d['MoM'] = d['Total production'] - d['Total production'].shift(1)
-        fig_mom = create_dualaxis_graph(d[['Total production', 'MoM']], title=f"{title} Production")
+        d["MoM"] = d["Total production"] - d["Total production"].shift(1)
+        fig_mom = create_dualaxis_graph(
+            d[["Total production", "MoM"]], title=f"{title} Production"
+        )
         graphs.append(fig_mom)
     total_prod = pd.concat(tot_prod_list, axis=1)
-    fig = cpl.seas_line_plot(total_prod.sum(axis=1).astype(float),
-                             title="Total Shale Production - 3 Main Plays",
-                             precision_format='{0:,.0f}')
+    fig = cpl.seas_line_plot(
+        total_prod.sum(axis=1).astype(float),
+        title="Total Shale Production - 3 Main Plays",
+        precision_format="{0:,.0f}",
+    )
     graphs.append(fig)
-    total_prod["YoY Changes"] = total_prod.sum(axis=1) - total_prod.sum(axis=1).shift(12)
-    total_prod["YoY Average Changes"] = total_prod["YoY Changes"].rolling(window=12).mean()
-    fig = cpl.bar_line_plot(total_prod[["YoY Changes", "YoY Average Changes"]],
-                            linecol="YoY Average Changes",
-                            title="US Shale Production")
+    total_prod["YoY Changes"] = total_prod.sum(axis=1) - total_prod.sum(axis=1).shift(
+        12
+    )
+    total_prod["YoY Average Changes"] = (
+        total_prod["YoY Changes"].rolling(window=12).mean()
+    )
+    fig = cpl.bar_line_plot(
+        total_prod[["YoY Changes", "YoY Average Changes"]],
+        linecol="YoY Average Changes",
+        title="US Shale Production",
+    )
     graphs.append(fig)
     return graphs
 
@@ -96,45 +103,58 @@ def read_rig_report(name):
 def read_duc_report(name):
     filename = fileloc % name
     ex = excel_scraper.read_excel_file(filename)
-    d = ex.parse('Data', index_col=0)
-    header = pd.MultiIndex.from_product([[x.strip() for x in list(d.iloc[1]) if str(x) != 'nan'],
-                                         list(dict.fromkeys([x.strip() for x in list(d.iloc[2]) if str(x) != 'nan']))],
-                                        names=['loc', 'drill_type'])
-    d.dropna(axis=1, how='all', inplace=True)
+    d = ex.parse("Data", index_col=0)
+    header = pd.MultiIndex.from_product(
+        [
+            [x.strip() for x in list(d.iloc[1]) if str(x) != "nan"],
+            list(
+                dict.fromkeys([x.strip() for x in list(d.iloc[2]) if str(x) != "nan"])
+            ),
+        ],
+        names=["loc", "drill_type"],
+    )
+    d.dropna(axis=1, how="all", inplace=True)
     d.columns = header
     d = d.iloc[3:]
     locs = [x.replace(" Region", "") for x in sheets_to_graph]
     graphs = []
     for loc in locs:
-        df = d.xs(loc, level='loc', axis=1)
-        fig = cpl.seas_line_plot(df['DUC'].astype(float), shaded_range=[2017, 2020], title=f"{loc} DUCs")
+        df = d.xs(loc, level="loc", axis=1)
+        fig = cpl.seas_line_plot(
+            df["DUC"].astype(float), shaded_range=[2017, 2020], title=f"{loc} DUCs"
+        )
         graphs.append(fig)
     return graphs
 
 
 def get_jinja_dict():
-    data = {'title': 'EIA Productivity Report', 'name': 'EIA Productivity Report'}
-    data['release_date'] = read_release_date()
-    data['rig_charts'] = read_rig_report(filenames[0])
-    data['duc_charts'] = read_duc_report(filenames[1])
+    data = {"title": "EIA Productivity Report", "name": "EIA Productivity Report"}
+    data["release_date"] = read_release_date()
+    data["rig_charts"] = read_rig_report(filenames[0])
+    data["duc_charts"] = read_duc_report(filenames[1])
 
     return data
 
 
 def generate_page(filename=None):
-    return ju.render_html(data=get_jinja_dict(),
-                          template='monthly_drilling_report.html',
-                          filename=filename,
-                          package_loader_name='oilanalytics.eia',
-                          template_globals={'cu': cu})
+    return ju.render_html(
+        data=get_jinja_dict(),
+        template="monthly_drilling_report.html",
+        filename=filename,
+        package_loader_name="oilanalytics.eia",
+        template_globals={"cu": cu},
+    )
 
 
 def generate_email():
-    compose_and_send_jinja_report('EIA Productivity Report',
-                                  data=get_jinja_dict(),
-                                  template='monthly_drilling_report_email.html',
-                                  package_loader_name='oilanalytics.eia',
-                                  template_globals={'cu': cu})
+    compose_and_send_jinja_report(
+        "EIA Productivity Report",
+        data=get_jinja_dict(),
+        template="monthly_drilling_report_email.html",
+        package_loader_name="oilanalytics.eia",
+        template_globals={"cu": cu},
+    )
+
 
 if __name__ == "__main__":
     # graphs = read_rig_report(filenames[0])
