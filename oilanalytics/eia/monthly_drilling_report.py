@@ -10,7 +10,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 from commodplot import commodplot as cpl
 from bs4 import BeautifulSoup
-
+import urllib.request as urllib2
 
 filenames = ["dpr-data", "duc-data"]
 fileloc = "https://www.eia.gov/petroleum/drilling//xls/%s.xlsx"
@@ -29,12 +29,11 @@ all_sheets = [
     "Permian Region",
 ]
 
-
 def read_release_date():
 
-    r = requests.get(eia_webpage)
+    r = urllib2.urlopen(eia_webpage).read()
     x = []
-    soup = BeautifulSoup(r.content, 'html.parser')
+    soup = BeautifulSoup(r, 'html.parser')
     for date in soup.find_all('span', {'class': 'date'}):
         x.append(date)
     x = str(x[0])
@@ -136,7 +135,11 @@ def generate_email():
                                   template_globals={'cu': cu})
 
 if __name__ == "__main__":
+
+    proxy_support = urllib2.ProxyHandler({"http": "http://proxy-rwest-uk.energy.local:8080"})
+    opener = urllib2.build_opener(proxy_support)
+    urllib2.install_opener(opener)
     # graphs = read_rig_report(filenames[0])
-    # generate_page('test.html')
+    generate_page('test.html')
     # date = read_release_date()
-    generate_email()
+    # generate_email()
