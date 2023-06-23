@@ -34,13 +34,11 @@ def read_release_date():
     r = urllib2.urlopen(eia_webpage).read()
     x = []
     soup = BeautifulSoup(r, 'html.parser')
-    for date in soup.find_all('span', {'class': 'date'}):
-        x.append(date)
-    x = str(x[0])
-    result = re.search('">(.*)</', x).group(1)
+    result = soup.find_all('span', {'class': 'date'})[0].text.strip()
     if result:
         release_date = datetime.strptime(result, "%B %d, %Y")
     return release_date
+
 
 
 def create_dualaxis_graph(df, title=None):
