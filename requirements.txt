@@ -1,5 +1,5 @@
 requests
-pandas
+pandas==1.5.3
 eiapy
 pyenergyaspects
 excel-scraper
