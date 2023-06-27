@@ -1,5 +1,8 @@
 import typing as t
+from deprecated import deprecated
 from functools import reduce
+
+
 
 import pandas as pd
 from dotenv import load_dotenv
@@ -8,7 +11,7 @@ from eiapy import Category, MultiSeries
 # Load environmental variables from '.env' file.
 load_dotenv()
 
-
+@deprecated(reason="EIAPY doesn't support V2 API.")
 def extract_dataframe(data: list, series_id: str, freq: str = "M") -> pd.DataFrame:
     df = pd.DataFrame(data, columns=["date", series_id]).set_index("date")
     f = None
@@ -18,6 +21,7 @@ def extract_dataframe(data: list, series_id: str, freq: str = "M") -> pd.DataFra
     return df
 
 
+@deprecated(reason="EIAPY doesn't support V2 API.")
 def get_data(series_ids: t.Tuple[str], last=10) -> pd.DataFrame:
     """
     Given a list of EIA series Id, call api, get the data and return as a DataFrame
@@ -37,6 +41,7 @@ def get_data(series_ids: t.Tuple[str], last=10) -> pd.DataFrame:
     return dfs
 
 
+@deprecated(reason="EIAPY doesn't support V2 API.")
 def child_series(category_ids: t.Tuple[int], freq_filter: str = None) -> list:
     """
     Given a list of EIA category ids, get a list of series_ids that make up those categories

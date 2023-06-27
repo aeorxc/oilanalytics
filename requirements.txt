@@ -1,5 +1,6 @@
 requests
 pandas==1.5.3
+Deprecated
 eiapy
 pyenergyaspects
 excel-scraper

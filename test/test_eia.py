@@ -1,8 +1,9 @@
 import pandas as pd
-
+import pytest
 from oilanalytics.eia import eia, steo
 
 
+@pytest.mark.skip(reason="EAIPY DOESN'T SUPPORT V2 OF EIA API")
 def test_get_data_1():
     res = eia.get_data(["STEO.PATC_NON_OECD.M", "STEO.PATC_OECD.M"])
     assert "STEO.PATC_OECD.M" in res.columns
@@ -10,12 +11,14 @@ def test_get_data_1():
     assert isinstance(res.index, pd.DatetimeIndex)
 
 
+@pytest.mark.skip(reason="EAIPY DOESN'T SUPPORT V2 OF EIA API")
 def test_get_data_2():
     res = eia.get_data(["STEO.PATC_NON_OECD.Q", "STEO.PATC_OECD.M"])
     assert "STEO.PATC_OECD.M" in res.columns
     assert isinstance(res.index, pd.DatetimeIndex)
 
 
+@pytest.mark.skip(reason="EAIPY DOESN'T SUPPORT V2 OF EIA API")
 def test_child_series():
     categs = [
         829747,  # EIA Data Sets > Short-Term Energy Outlook > International Petroleum and Other Liquids > Consumption
@@ -29,6 +32,7 @@ def test_child_series():
     assert "STEO.PATC_NON_OECD.M" in [x["series_id"] for x in res]
 
 
+@pytest.mark.skip(reason="EAIPY DOESN'T SUPPORT V2 OF EIA API")
 def test_steo_get_data():
     res = steo.get_data()
     assert "STEO.PATC_NON_OECD.M" in res.columns
