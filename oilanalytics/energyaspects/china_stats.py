@@ -7,6 +7,7 @@ from pyenergyaspects import eaapi
 from oilanalytics.utils import chartutils as cu
 
 china_stat_ids = [
+    58,
     3333,
     3334,
     3335,
@@ -30,6 +31,7 @@ china_stat_ids = [
     3350,
     3351,
     3352,
+    3355,
     3330,
     3358,
     3359,
@@ -50,6 +52,8 @@ china_stat_ids = [
     1479,
     1480,
     3324,
+    15160,
+
 ]
 
 

@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="oilanalytics",
-    version="0.3.1",
+    version="0.3.2",
     author="aeorxc",
     description="Utilities for oil analytics",
     url="https://github.com/aeorxc/oilanalytics",
