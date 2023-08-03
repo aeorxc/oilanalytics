@@ -9,7 +9,9 @@ from excel_scraper import excel_scraper
 
 from oilanalytics.utils import chartutils as cu
 
-fileloc = "https://ir.eia.gov/wpsr/psw09.xls"
+fileloc_09 = "https://ir.eia.gov/wpsr/psw09.xls"
+
+fileloc_01 = "https://ir.eia.gov/wpsr/psw01.xls"
 
 canada_importa_file_loc = (
     "https://www.eia.gov/dnav/pet/hist_xls/W_EPC0_IM0_NUS-NCA_MBBLDw.xls"
@@ -17,9 +19,9 @@ canada_importa_file_loc = (
 
 eia_url = "https://www.eia.gov/opendata/qb.php?sdid=PET.%s.W"
 
-sheets_to_parse = [
+file_09_sheets_to_parse = [
     "Contents",
-    "Data 1",
+    # "Data 1", read from p01
     "Data 2",
     "Data 3",
     "Data 4",
@@ -35,20 +37,6 @@ sheets_to_parse = [
 ]
 
 
-def report_symbols() -> dict:
-    """
-    Get a list of all the symbols in the Weekly Report
-    :return:
-    """
-    ex = excel_scraper.read_excel_file(fileloc)
-    symbols = {}
-    for tab in sheets_to_parse:
-        if "Data" in tab:
-            d = ex.parse(tab, skiprows=[0]).head(1).iloc[0].to_dict()
-            symbols = {**symbols, **d}
-    return symbols
-
-
 def read_canada_imports():
     df = excel_scraper.read_table(
         canada_importa_file_loc, sheet_name="Data 1", skiprows=(0, 2), index_col=0
@@ -56,42 +44,51 @@ def read_canada_imports():
     return df
 
 
-def read_report() -> pd.DataFrame:
+def modify_level(level0, level1):
+    return [
+        item + "_4wa" if "4-Week Avg" in level1[i] else item
+        for i, item in enumerate(level0)
+    ]
+
+
+def read_release_date(fileloc):
+    ex = excel_scraper.read_excel_file(fileloc)
+    d = ex.parse("Contents")
+    ind_row = 27
+    ind_col = 2
+    # Check that the values we have match the location of 'Release Date:' in the file
+    rl_date_ind = int(d[d.eq("Release Date:").any(1)].index.values)
+    if rl_date_ind == ind_row:
+        release_date = pd.to_datetime(d.iloc[ind_row][ind_col], dayfirst=False)
+        return release_date
+    else:
+        raise ValueError("Row indexes do not match")
+
+
+def read_tab(d):
+    d = d["2000":]
+    d = d / 1000
+    # rename and columns with 4wa
+    levels = list(d.columns.levels)
+    levels[0] = modify_level(levels[0], levels[1])
+    d.columns.set_levels(levels, inplace=True)
+    d.columns = d.columns.droplevel(1)
+    return d
+
+
+def read_report_09() -> pd.DataFrame:
     """
     Read all the timeseries in the report
     :return:
     """
-    ex = excel_scraper.read_excel_file(fileloc)
+    ex = excel_scraper.read_excel_file(fileloc_09)
     dfs = []
-    for tab in sheets_to_parse:
+    for tab in file_09_sheets_to_parse:
         if "Data" in tab:
-            d = ex.parse(tab, skiprows=[0, 2], index_col=0)
-            d = d["2000":]
-            # if tab in ['Data 1', 'Data 2', 'Data 6']:
-            d = d / 1000
-            if tab == "Data 14":
-                # d.rename(columns={'WDIRPUS2':'WDIRPUS2_4wk', 'WKJRPUS2':'WKJRPUS2_4wk'}, inplace=True)
+            d = ex.parse(tab, skiprows=[0], header=[0, 1], index_col=0)
+            dx = read_tab(d)
+            dfs.append(dx)
 
-                d.rename(columns={"WDIRPUS2": "WDIRPUS2_4wk"}, inplace=True)
-                d = d["WDIRPUS2_4wk"]
-            if tab == "Data 16":
-                d.rename(
-                    columns={"W_EPOOXE_YOP_NUS_MBBLD": "W_EPOOXE_YOP_NUS_MBBLD_4wk"},
-                    inplace=True,
-                )
-                d = d["W_EPOOXE_YOP_NUS_MBBLD_4wk"]
-
-            dfs.append(d)
-        else:
-            d = ex.parse(tab)
-            ind_row = 27
-            ind_col = 2
-            # Check that the values we have match the location of 'Release Date:' in the file
-            rl_date_ind = int(d[d.eq("Release Date:").any(1)].index.values)
-            if rl_date_ind == ind_row:
-                release_date = pd.to_datetime(d.iloc[ind_row][ind_col], dayfirst=False)
-            else:
-                raise ValueError("Row indexes do not match")
     res = pd.concat(dfs, axis=1)
 
     res["Gas Yield"] = (res["W_EPM0F_YPR_NUS_MBBLD"] / res["WCRRIUS2"]) * 100
@@ -106,7 +103,26 @@ def read_report() -> pd.DataFrame:
 
     res = pdu.mergets(res, read_canada_imports())
 
-    return res, release_date
+    return res
+
+
+def read_report_01() -> pd.DataFrame:
+    ex = excel_scraper.read_excel_file(fileloc_01)
+    dfs = []
+    for tab in ["Data 2"]:
+        if "Data" in tab:
+            d = ex.parse(tab, skiprows=[0], header=[0, 1], index_col=0)
+            dx = read_tab(d)
+            dfs.append(dx)
+    res = pd.concat(dfs, axis=1)
+    return res
+
+
+def read_report():
+    r09 = read_report_09()
+    r01 = read_report_01()
+    report = pd.concat([r09, r01], axis=1)
+    return report
 
 
 def gen_page(
@@ -115,8 +131,10 @@ def gen_page(
     data = {"name": title, "title": title, "eia_url": eia_url}
 
     if report_data is None:
-        report_data = read_report()
-    data["report"], data["release_date"] = report_data
+        report = read_report()
+        report = report.loc[:, ~report.columns.duplicated()]
+        data["report"] = report
+    data["release_date"] = read_release_date(fileloc_09)
 
     return ju.render_html(
         data,
@@ -135,7 +153,7 @@ def gen_summary_charts(filename, report_data=None):
     }
 
     if report_data is None:
-        report_data = read_report()
+        report_data = read_report_09()
     data["report"] = report_data
 
     return ju.render_html(
@@ -159,7 +177,7 @@ def gen_and_send_email(
         "eia_url": eia_url,
     }
     if report_data is None:
-        report_data = read_report()[0]
+        report_data = read_report_09()[0]
 
     summary_table_items = {
         "WCESTUS1": "Crude Stocks",
@@ -251,8 +269,8 @@ if __name__ == "__main__":
         template="doe_weekly_crude.html",
         filename=r"crude.html",
     )
-    gen_page(
-        title="DOE Weekly Report - Gasoline",
-        template="doe_weekly_gasoline.html",
-        filename=r"gasoline.html",
-    )
+    # gen_page(
+    #     title="DOE Weekly Report - Gasoline",
+    #     template="doe_weekly_gasoline.html",
+    #     filename=r"gasoline.html",
+    # )

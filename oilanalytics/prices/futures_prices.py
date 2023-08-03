@@ -137,7 +137,6 @@ def generate_symbol_page(
         data[spread] = cpl.reindex_year_line_plot(d, title=spread)
 
     if cust_charts:
-
         index = 1
         for cust_chart in cust_charts:
             d = forwards.spread_combination(contracts, cust_chart)

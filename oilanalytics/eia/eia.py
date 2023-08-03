@@ -3,13 +3,13 @@ from deprecated import deprecated
 from functools import reduce
 
 
-
 import pandas as pd
 from dotenv import load_dotenv
 from eiapy import Category, MultiSeries
 
 # Load environmental variables from '.env' file.
 load_dotenv()
+
 
 @deprecated(reason="EIAPY doesn't support V2 API.")
 def extract_dataframe(data: list, series_id: str, freq: str = "M") -> pd.DataFrame:
