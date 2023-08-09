@@ -21,7 +21,7 @@ eia_url = "https://www.eia.gov/opendata/qb.php?sdid=PET.%s.W"
 
 file_09_sheets_to_parse = [
     "Contents",
-    # "Data 1", read from p01
+    "Data 1",
     "Data 2",
     "Data 3",
     "Data 4",
@@ -177,7 +177,7 @@ def gen_and_send_email(
         "eia_url": eia_url,
     }
     if report_data is None:
-        report_data = read_report_09()[0]
+        report_data = read_report_09()
 
     summary_table_items = {
         "WCESTUS1": "Crude Stocks",
@@ -274,3 +274,4 @@ if __name__ == "__main__":
         template="doe_weekly_gasoline.html",
         filename=r"gasoline.html",
     )
+    # gen_and_send_email()
