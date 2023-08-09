@@ -269,8 +269,8 @@ if __name__ == "__main__":
         template="doe_weekly_crude.html",
         filename=r"crude.html",
     )
-    # gen_page(
-    #     title="DOE Weekly Report - Gasoline",
-    #     template="doe_weekly_gasoline.html",
-    #     filename=r"gasoline.html",
-    # )
+    gen_page(
+        title="DOE Weekly Report - Gasoline",
+        template="doe_weekly_gasoline.html",
+        filename=r"gasoline.html",
+    )
