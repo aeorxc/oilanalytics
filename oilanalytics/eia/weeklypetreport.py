@@ -184,11 +184,13 @@ def gen_and_send_email(
         "W_EPC0_SAX_YCUOK_MBBL": "Cushing Stocks",
         "WGTSTUS1": "Mogas Stocks",
         "WDISTUS1": "Distillate Stocks",
+        "WPRSTUS1": "Propane and Propylene Stocks",
         "WGFUPUS2": "Mogas Demand",
         "WDIUPUS2": "Distillate Demand",
         "WCRFPUS2": "Crude Supply",
         "WCREXUS2": "Crude Exports",
         "WCRRIUS2": "Runs",
+
     }
 
     df_sum = report_data[summary_table_items.keys()].rename(columns=summary_table_items)
@@ -229,49 +231,49 @@ def extract_release_date(url: str) -> datetime.date:
 
 
 if __name__ == "__main__":
-    gen_page(
-        title="DOE Weekly Report",
-        template="templates/doe_weekly_summary.html",
-        filename=r"summary.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Refineries",
-        template="doe_weekly_refineries.html",
-        filename=r"refineries.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Distillates",
-        template="doe_weekly_distillates.html",
-        filename=r"distillates.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Jet",
-        template="doe_weekly_jet.html",
-        filename=r"jet.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Fuel",
-        template="doe_weekly_fuel.html",
-        filename=r"fuel.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - LPG",
-        template="doe_weekly_lpg.html",
-        filename=r"lpg.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Ethanol",
-        template="doe_weekly_ethanol.html",
-        filename=r"ethanol.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Crude",
-        template="doe_weekly_crude.html",
-        filename=r"crude.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Gasoline",
-        template="doe_weekly_gasoline.html",
-        filename=r"gasoline.html",
-    )
-    # gen_and_send_email()
+    # gen_page(
+    #     title="DOE Weekly Report",
+    #     template="templates/doe_weekly_summary.html",
+    #     filename=r"summary.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Refineries",
+    #     template="doe_weekly_refineries.html",
+    #     filename=r"refineries.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Distillates",
+    #     template="doe_weekly_distillates.html",
+    #     filename=r"distillates.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Jet",
+    #     template="doe_weekly_jet.html",
+    #     filename=r"jet.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Fuel",
+    #     template="doe_weekly_fuel.html",
+    #     filename=r"fuel.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - LPG",
+    #     template="doe_weekly_lpg.html",
+    #     filename=r"lpg.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Ethanol",
+    #     template="doe_weekly_ethanol.html",
+    #     filename=r"ethanol.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Crude",
+    #     template="doe_weekly_crude.html",
+    #     filename=r"crude.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Gasoline",
+    #     template="doe_weekly_gasoline.html",
+    #     filename=r"gasoline.html",
+    # )
+    gen_and_send_email()
