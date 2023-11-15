@@ -45,10 +45,8 @@ def read_canada_imports():
 
 
 def modify_level(level0, level1):
-    return [
-        item + "_4wa" if "4-Week Avg" in level1[i] else item
-        for i, item in enumerate(level0)
-    ]
+    return [item + "_4wa" if i < len(level1) and "4-Week Avg" in level1[i] else item for i, item in enumerate(level0)]
+
 
 
 def read_release_date(fileloc):
