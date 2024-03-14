@@ -13,12 +13,13 @@ fileloc_09 = "https://ir.eia.gov/wpsr/psw09.xls"
 
 fileloc_01 = "https://ir.eia.gov/wpsr/psw01.xls"
 
+fileloc_05a = "https://ir.eia.gov/wpsr/psw05a.xls"
+
 canada_importa_file_loc = (
     "https://www.eia.gov/dnav/pet/hist_xls/W_EPC0_IM0_NUS-NCA_MBBLDw.xls"
 )
 
-eia_url = "https://www.eia.gov/opendata/qb.php?sdid=PET.%s.W"
-
+eia_url = "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=%s&f=W"
 file_09_sheets_to_parse = [
     "Contents",
     "Data 1",
@@ -45,8 +46,10 @@ def read_canada_imports():
 
 
 def modify_level(level0, level1):
-    return [item + "_4wa" if i < len(level1) and "4-Week Avg" in level1[i] else item for i, item in enumerate(level0)]
-
+    return [
+        item + "_4wa" if i < len(level1) and "4-Week Avg" in level1[i] else item
+        for i, item in enumerate(level0)
+    ]
 
 
 def read_release_date(fileloc):
@@ -116,10 +119,23 @@ def read_report_01() -> pd.DataFrame:
     return res
 
 
+def read_report_05a() -> pd.DataFrame:
+    ex = excel_scraper.read_excel_file(fileloc_05a)
+    dfs = []
+    for tab in ["Data 1"]:
+        if "Data" in tab:
+            d = ex.parse(tab, skiprows=[0], header=[0, 1], index_col=0)
+            dx = read_tab(d)
+            dfs.append(dx)
+    res = pd.concat(dfs, axis=1)
+    return res
+
+
 def read_report():
     r09 = read_report_09()
     r01 = read_report_01()
-    report = pd.concat([r09, r01], axis=1)
+    r05a = read_report_05a()
+    report = pd.concat([r09, r01, r05a], axis=1)
     return report
 
 
@@ -188,7 +204,6 @@ def gen_and_send_email(
         "WCRFPUS2": "Crude Supply",
         "WCREXUS2": "Crude Exports",
         "WCRRIUS2": "Runs",
-
     }
 
     df_sum = report_data[summary_table_items.keys()].rename(columns=summary_table_items)
@@ -229,49 +244,49 @@ def extract_release_date(url: str) -> datetime.date:
 
 
 if __name__ == "__main__":
-    # gen_page(
-    #     title="DOE Weekly Report",
-    #     template="templates/doe_weekly_summary.html",
-    #     filename=r"summary.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - Refineries",
-    #     template="doe_weekly_refineries.html",
-    #     filename=r"refineries.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - Distillates",
-    #     template="doe_weekly_distillates.html",
-    #     filename=r"distillates.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - Jet",
-    #     template="doe_weekly_jet.html",
-    #     filename=r"jet.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - Fuel",
-    #     template="doe_weekly_fuel.html",
-    #     filename=r"fuel.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - LPG",
-    #     template="doe_weekly_lpg.html",
-    #     filename=r"lpg.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - Ethanol",
-    #     template="doe_weekly_ethanol.html",
-    #     filename=r"ethanol.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - Crude",
-    #     template="doe_weekly_crude.html",
-    #     filename=r"crude.html",
-    # )
-    # gen_page(
-    #     title="DOE Weekly Report - Gasoline",
-    #     template="doe_weekly_gasoline.html",
-    #     filename=r"gasoline.html",
-    # )
+    gen_page(
+        title="DOE Weekly Report",
+        template="templates/doe_weekly_summary.html",
+        filename=r"summary.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - Refineries",
+        template="doe_weekly_refineries.html",
+        filename=r"refineries.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - Distillates",
+        template="doe_weekly_distillates.html",
+        filename=r"distillates.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - Jet",
+        template="doe_weekly_jet.html",
+        filename=r"jet.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - Fuel",
+        template="doe_weekly_fuel.html",
+        filename=r"fuel.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - LPG",
+        template="doe_weekly_lpg.html",
+        filename=r"lpg.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - Ethanol",
+        template="doe_weekly_ethanol.html",
+        filename=r"ethanol.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - Crude",
+        template="doe_weekly_crude.html",
+        filename=r"crude.html",
+    )
+    gen_page(
+        title="DOE Weekly Report - Gasoline",
+        template="doe_weekly_gasoline.html",
+        filename=r"gasoline.html",
+    )
     gen_and_send_email()
