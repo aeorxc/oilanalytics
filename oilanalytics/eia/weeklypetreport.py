@@ -6,6 +6,7 @@ import urllib3
 from commodplot import jinjautils as ju
 from commodplot.messaging import compose_and_send_jinja_report
 from excel_scraper import excel_scraper
+from myeia.api import API
 
 from oilanalytics.utils import chartutils as cu
 
@@ -38,6 +39,15 @@ file_09_sheets_to_parse = [
 ]
 
 
+monthly_report_codes = [
+    # https://www.eia.gov/dnav/pet/PET_SUM_SND_D_NUS_MBBLPD_M_CUR.htm
+    'PET.M_EPC0_TVP_NUS_MBBLD.M',
+    'PET.M_EPLLPA_TVP_NUS_MBBLD.M',
+    'PET.M_EPL2_TVP_NUS_MBBLD.M',
+    'PET.M_EPLLNG_TVP_NUS_MBBLD.M',
+
+]
+
 def read_canada_imports():
     df = excel_scraper.read_table(
         canada_importa_file_loc, sheet_name="Data 1", skiprows=(0, 2), index_col=0
@@ -50,6 +60,19 @@ def modify_level(level0, level1):
         item + "_4wa" if i < len(level1) and "4-Week Avg" in level1[i] else item
         for i, item in enumerate(level0)
     ]
+
+
+def read_monthly_data():
+    eia = API()
+    dfs = []
+    codemap = {}
+    for code in monthly_report_codes:
+        dfx = eia.get_series(series_id=code)
+        codemap[code] = dfx.columns[0]
+        dfs.append(dfx)
+    df = pd.concat(dfs, axis=1)
+    df.attrs['codemap'] = codemap
+    return df
 
 
 def read_release_date(fileloc):
@@ -72,7 +95,7 @@ def read_tab(d):
     # rename and columns with 4wa
     levels = list(d.columns.levels)
     levels[0] = modify_level(levels[0], levels[1])
-    d.columns.set_levels(levels, inplace=True)
+    d.columns = d.columns.set_levels(levels)
     d.columns = d.columns.droplevel(1)
     return d
 
@@ -148,6 +171,7 @@ def gen_page(
         report = read_report()
         report = report.loc[:, ~report.columns.duplicated()]
         data["report"] = report
+        data["report_monthly"] = read_monthly_data()
     data["release_date"] = read_release_date(fileloc_09)
 
     return ju.render_html(

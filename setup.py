@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="oilanalytics",
-    version="0.3.12",
+    version="0.3.13",
     author="aeorxc",
     description="Utilities for oil analytics",
     url="https://github.com/aeorxc/oilanalytics",
@@ -23,7 +23,7 @@ setuptools.setup(
         "python-dotenv",
         "cachetools",
         "beautifulsoup4",
-        "eiapy",
+        "myeia",
     ],
     python_requires=">=3.8",
     setup_requires=["pytest-runner"],
