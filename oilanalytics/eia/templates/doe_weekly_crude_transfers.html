@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "doe_weekly_macros.html" as m %}
+
+{% block content %}
+<style>
+        table, th, td {
+        border:1px solid black;
+    }
+
+</style>
+
+
+<H4>Transfers</H4>
+<div class="row no-gutters">
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPC0_TVP_NUS_MBBLD', title='Transfers to Crude: Crude oil',
+        title_url=data['eia_url']) }}</p></div>
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart(data['report_monthly'], 'U.S. Transfers to Crude Oil Supply of Crude Oil(Thousand Barrels per Day)', title='Monthly: U.S. Transfers to Crude Oil Supply of Crude Oil(Thousand Barrels per Day)') }}</p></div>
+</div>
+
+<div class="row no-gutters">
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPLLNGPU_TVP_NUS_MBBLD', title='Transfers to Crude: Natural Gasoline & Unfinished Oils',
+        title_url=data['eia_url']) }}</p></div>
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart(data['report_monthly'] * -1, 'U.S. Transfers to Crude Oil Supply of Natural Gasoline(Thousand Barrels per Day)', title='Monthly: U.S. Transfers to Crude Oil Supply of Natural Gasoline(Thousand Barrels per Day)') }}</p></div>
+</div>
+
+
+<div class="row no-gutters">
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'W_EPLLCL2A_TVP_NUS_MBBLD', title='Transfers to Crude: Condensate & Alskan NGL',
+        title_url=data['eia_url']) }}</p></div>
+</div>
+
+{% endblock %}

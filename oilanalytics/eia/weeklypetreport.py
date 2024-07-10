@@ -171,12 +171,31 @@ def gen_page(
         report = read_report()
         report = report.loc[:, ~report.columns.duplicated()]
         data["report"] = report
-        data["report_monthly"] = read_monthly_data()
     data["release_date"] = read_release_date(fileloc_09)
 
     return ju.render_html(
         data,
         template=template,
+        filename=filename,
+        package_loader_name="oilanalytics.eia",
+        template_globals={"cu": cu},
+    )
+
+
+def gen_crude_transfer_page(filename: str = None, report_data: pd.DataFrame = None):
+    t = "DOE Weekly Report - Crude Transfers"
+    data = {"name": t, "title": t, "eia_url": eia_url}
+
+    if report_data is None:
+        report = read_report()
+        report = report.loc[:, ~report.columns.duplicated()]
+        data["report"] = report
+
+    data["report_monthly"] = read_monthly_data()
+    data["release_date"] = read_release_date(fileloc_09)
+    return ju.render_html(
+        data,
+        template="doe_weekly_crude_transfers.html",
         filename=filename,
         package_loader_name="oilanalytics.eia",
         template_globals={"cu": cu},
@@ -268,49 +287,52 @@ def extract_release_date(url: str) -> datetime.date:
 
 
 if __name__ == "__main__":
-    gen_page(
-        title="DOE Weekly Report",
-        template="templates/doe_weekly_summary.html",
-        filename=r"summary.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Refineries",
-        template="doe_weekly_refineries.html",
-        filename=r"refineries.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Distillates",
-        template="doe_weekly_distillates.html",
-        filename=r"distillates.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Jet",
-        template="doe_weekly_jet.html",
-        filename=r"jet.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Fuel",
-        template="doe_weekly_fuel.html",
-        filename=r"fuel.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - LPG",
-        template="doe_weekly_lpg.html",
-        filename=r"lpg.html",
-    )
-    gen_page(
-        title="DOE Weekly Report - Ethanol",
-        template="doe_weekly_ethanol.html",
-        filename=r"ethanol.html",
-    )
+    # gen_page(
+    #     title="DOE Weekly Report",
+    #     template="templates/doe_weekly_summary.html",
+    #     filename=r"summary.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Refineries",
+    #     template="doe_weekly_refineries.html",
+    #     filename=r"refineries.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Distillates",
+    #     template="doe_weekly_distillates.html",
+    #     filename=r"distillates.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Jet",
+    #     template="doe_weekly_jet.html",
+    #     filename=r"jet.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Fuel",
+    #     template="doe_weekly_fuel.html",
+    #     filename=r"fuel.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - LPG",
+    #     template="doe_weekly_lpg.html",
+    #     filename=r"lpg.html",
+    # )
+    # gen_page(
+    #     title="DOE Weekly Report - Ethanol",
+    #     template="doe_weekly_ethanol.html",
+    #     filename=r"ethanol.html",
+    # )
     gen_page(
         title="DOE Weekly Report - Crude",
         template="doe_weekly_crude.html",
         filename=r"crude.html",
     )
-    gen_page(
-        title="DOE Weekly Report - Gasoline",
-        template="doe_weekly_gasoline.html",
-        filename=r"gasoline.html",
+    # gen_page(
+    #     title="DOE Weekly Report - Gasoline",
+    #     template="doe_weekly_gasoline.html",
+    #     filename=r"gasoline.html",
+    # )
+    gen_crude_transfer_page(
+        filename=r"doe_weekly_crude_transfers.html",
     )
-    gen_and_send_email()
+    # gen_and_send_email()
