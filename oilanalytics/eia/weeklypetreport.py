@@ -16,9 +16,11 @@ fileloc_01 = "https://ir.eia.gov/wpsr/psw01.xls"
 
 fileloc_05a = "https://ir.eia.gov/wpsr/psw05a.xls"
 
-canada_importa_file_loc = (
-    "https://www.eia.gov/dnav/pet/hist_xls/W_EPC0_IM0_NUS-NCA_MBBLDw.xls"
-)
+fileloc_08 = "https://ir.eia.gov/wpsr/psw08.xls"
+
+# canada_importa_file_loc = (
+#     "https://www.eia.gov/dnav/pet/hist_xls/W_EPC0_IM0_NUS-NCA_MBBLDw.xls"
+# )
 
 eia_url = "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=%s&f=W"
 file_09_sheets_to_parse = [
@@ -48,11 +50,11 @@ monthly_report_codes = [
 
 ]
 
-def read_canada_imports():
-    df = excel_scraper.read_table(
-        canada_importa_file_loc, sheet_name="Data 1", skiprows=(0, 2), index_col=0
-    )
-    return df
+# def read_canada_imports():
+#     df = excel_scraper.read_table(
+#         canada_importa_file_loc, sheet_name="Data 1", skiprows=(0, 2), index_col=0
+#     )
+#     return df
 
 
 def modify_level(level0, level1):
@@ -125,7 +127,7 @@ def read_report_09() -> pd.DataFrame:
     res["distillate_dc"] = (res["WDISTUS1"] / res["WDIRPUS2"]).rolling(window=4).mean()
     res["jet_dc"] = (res["WKJSTUS1"] / res["WKJUPUS2"]).rolling(window=4).mean()
 
-    res = pdu.mergets(res, read_canada_imports())
+    # res = pdu.mergets(res, read_canada_imports())
 
     return res
 
@@ -134,6 +136,18 @@ def read_report_01() -> pd.DataFrame:
     ex = excel_scraper.read_excel_file(fileloc_01)
     dfs = []
     for tab in ["Data 2"]:
+        if "Data" in tab:
+            d = ex.parse(tab, skiprows=[0], header=[0, 1], index_col=0)
+            dx = read_tab(d)
+            dfs.append(dx)
+    res = pd.concat(dfs, axis=1)
+    return res
+
+
+def read_report_08() -> pd.DataFrame:
+    ex = excel_scraper.read_excel_file(fileloc_08)
+    dfs = []
+    for tab in ["Data 1"]:
         if "Data" in tab:
             d = ex.parse(tab, skiprows=[0], header=[0, 1], index_col=0)
             dx = read_tab(d)
@@ -158,7 +172,8 @@ def read_report():
     r09 = read_report_09()
     r01 = read_report_01()
     r05a = read_report_05a()
-    report = pd.concat([r09, r01, r05a], axis=1)
+    r08 = read_report_08()
+    report = pd.concat([r09, r01, r05a, r08], axis=1)
     return report
 
 
