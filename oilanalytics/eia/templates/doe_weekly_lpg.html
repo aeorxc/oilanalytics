@@ -10,11 +10,17 @@
 </style>
 
 <div class="row no-gutters">
-    <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRSTUS1', title='Total LPG Stocks',
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRSTUS1', title='Total LPG Stocks',
         title_url=data['eia_url']) }}</p></div>
-    <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRUP_NUS_2', title='Total Propane &
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'propane_days_disp', title='Propane days of disposition',
+        title_url=data['eia_url']) }}</p></div>
+</div>
+<p>Days of disposition: Stocks / (demand + exports - imports)</p>
+
+<div class="row no-gutters">
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRUP_NUS_2', title='Total Propane &
         Propylene Product Supplied', title_url=data['eia_url']) }}</p></div>
-    <div class="col-md-4 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRTP_NUS_2', title='Total Propane
+    <div class="col-md-6 col-sm-12"><p>{{ cu.seas_chart_weekly(data['report'], 'WPRTP_NUS_2', title='Total Propane
         Production', title_url=data['eia_url']) }}</p></div>
 </div>
 

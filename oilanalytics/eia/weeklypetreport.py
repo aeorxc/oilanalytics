@@ -127,6 +127,7 @@ def read_report_09() -> pd.DataFrame:
     res["distillate_dc"] = (res["WDISTUS1"] / res["WDIRPUS2"]).rolling(window=4).mean()
     res["jet_dc"] = (res["WKJSTUS1"] / res["WKJUPUS2"]).rolling(window=4).mean()
 
+    res['propane_days_disp'] =  res['WPRSTUS1'] / (res['WPRUP_NUS_2'] - res['WPRIM_NUS-Z00_2'] + res['W_EPLLPZ_EEX_NUS-Z00_MBBLD']).rolling(window=4).mean()
     # res = pdu.mergets(res, read_canada_imports())
 
     return res
@@ -174,6 +175,7 @@ def read_report():
     r05a = read_report_05a()
     r08 = read_report_08()
     report = pd.concat([r09, r01, r05a, r08], axis=1)
+    report = report.loc[:, ~report.T.duplicated()]
     return report
 
 
@@ -238,7 +240,7 @@ def gen_summary_charts(filename, report_data=None):
 
 
 def gen_and_send_email(
-    report_data=None,
+    report_data_df=None,
     sender_email: str = None,
     receiver_email: str = None,
     dashboard_link: str = None,
@@ -248,8 +250,8 @@ def gen_and_send_email(
         "title": "DOE Weekly",
         "eia_url": eia_url,
     }
-    if report_data is None:
-        report_data = read_report_09()
+    if report_data_df is None:
+        report_data_df = read_report()
 
     summary_table_items = {
         "WCESTUS1": "Crude Stocks",
@@ -257,6 +259,7 @@ def gen_and_send_email(
         "WGTSTUS1": "Mogas Stocks",
         "WDISTUS1": "Distillate Stocks",
         "WPRSTUS1": "Propane and Propylene Stocks",
+        "propane_days_disp": "Propane days of disposition",
         "WGFUPUS2": "Mogas Demand",
         "WDIUPUS2": "Distillate Demand",
         "WCRFPUS2": "Crude Supply",
@@ -264,11 +267,11 @@ def gen_and_send_email(
         "WCRRIUS2": "Runs",
     }
 
-    df_sum = report_data[summary_table_items.keys()].rename(columns=summary_table_items)
+    df_sum = report_data_df[summary_table_items.keys()].rename(columns=summary_table_items)
     data["summary_table"] = cu.gen_wow_summary_table(df_sum)
 
     for key, title in summary_table_items.items():
-        data[title] = cu.seas_chart_weekly(df=report_data, series=key, title=title)
+        data[title] = cu.seas_chart_weekly(df=report_data_df, series=key, title=title)
 
     if dashboard_link:
         data["dashboard_link"] = f'<a href="{dashboard_link}">Link to Dashboard</a>'
@@ -337,17 +340,17 @@ if __name__ == "__main__":
     #     template="doe_weekly_ethanol.html",
     #     filename=r"ethanol.html",
     # )
-    gen_page(
-        title="DOE Weekly Report - Crude",
-        template="doe_weekly_crude.html",
-        filename=r"crude.html",
-    )
+    # gen_page(
+    #     title="DOE Weekly Report - Crude",
+    #     template="doe_weekly_crude.html",
+    #     filename=r"crude.html",
+    # )
     # gen_page(
     #     title="DOE Weekly Report - Gasoline",
     #     template="doe_weekly_gasoline.html",
     #     filename=r"gasoline.html",
     # )
-    gen_crude_transfer_page(
-        filename=r"doe_weekly_crude_transfers.html",
-    )
-    # gen_and_send_email()
+    # gen_crude_transfer_page(
+    #     filename=r"doe_weekly_crude_transfers.html",
+    # )
+    gen_and_send_email()
