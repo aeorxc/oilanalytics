@@ -258,6 +258,7 @@ def gen_and_send_email(
         "W_EPC0_SAX_YCUOK_MBBL": "Cushing Stocks",
         "WGTSTUS1": "Mogas Stocks",
         "WDISTUS1": "Distillate Stocks",
+        "WRESTUS1": "Fuel oil Stocks",
         "WPRSTUS1": "Propane and Propylene Stocks",
         "propane_days_disp": "Propane days of disposition",
         "WGFUPUS2": "Mogas Demand",
